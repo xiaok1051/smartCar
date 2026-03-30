@@ -192,14 +192,50 @@ int SC_drctl_backoff()
 /* 左转 */
 int SC_drctl_tuneLeft()
 {
-	int iRet = ERROR_FAILED;
+	int iRet;
+
+	// 左电机反转
+	iRet  = SC_drctl_setPinValue(SC_L298N_IN1, SC_ZERO);
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN2, SC_ONE);
+
+	// 右电机正转
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN3, SC_ONE);
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN4, SC_ZERO);
+
+	// 使能两电机
+	iRet |= SC_drctl_setPinValue(SC_L298N_ENA, SC_ONE);
+	iRet |= SC_drctl_setPinValue(SC_L298N_ENB, SC_ONE);
+
+	if(ERROR_SUCCESS != iRet)
+	{
+		printf("*** Set car tune left failed! ***\r\n");
+	}
+
 	return iRet;
 }
 
 /* 右转 */
 int SC_drctl_tuneRight()
 {
-	int iRet = ERROR_FAILED;
+	int iRet;
+
+	// 左电机正转
+	iRet  = SC_drctl_setPinValue(SC_L298N_IN1, SC_ONE);
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN2, SC_ZERO);
+
+	// 右电机反转
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN3, SC_ZERO);
+	iRet |= SC_drctl_setPinValue(SC_L298N_IN4, SC_ONE);
+
+	// 使能两电机
+	iRet |= SC_drctl_setPinValue(SC_L298N_ENA, SC_ONE);
+	iRet |= SC_drctl_setPinValue(SC_L298N_ENB, SC_ONE);
+
+	if(ERROR_SUCCESS != iRet)
+	{
+		printf("*** Set car tune right failed! ***\r\n");
+	}
+
 	return iRet;
 }
 

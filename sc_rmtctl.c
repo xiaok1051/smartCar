@@ -139,6 +139,18 @@ int SC_rmtctl_procMsg(int iMsglen, void *pMsg)
 			iRet = ERROR_SUCCESS;
 			break;
 		}
+		case '4':
+		{
+			SC_drctl_tuneLeft();
+			iRet = ERROR_SUCCESS;
+			break;
+		}
+		case '5':
+		{
+			SC_drctl_tuneRight();
+			iRet = ERROR_SUCCESS;
+			break;
+		}
 		default:
 		{
 			iRet = ERROR_FAILED;
